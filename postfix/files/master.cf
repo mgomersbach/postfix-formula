@@ -151,6 +151,16 @@ y
 {%-   else %}
 {{      parameter_str }}
 {%-   endif -%}
+{%-   if service.args is not none -%}
+{%-     for option in service.get('args', postfix_master_services.defaults[
+                                            service_name].get('args', [])) -%}
+{%-       if option.startswith('#') %}
+{{ option }}
+{%-       else %}
+{{ comment }}  {{ option }}
+{%-       endif %}
+{%-     endfor %}
+{%-   endif %}
 {%- endmacro -%}
 
 {#- Handle legacy configuration of services for backwards compatibility
